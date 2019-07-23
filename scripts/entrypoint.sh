@@ -32,6 +32,11 @@ if [ ! -f "$INITALIZED" ]; then
     echo ">> SAMBA CONFIG: no \$SAMBA_CONF_MAP_TO_GUEST set, using '$SAMBA_CONF_MAP_TO_GUEST'"
   fi
 
+  if [ -z ${SAMBA_FRUIT_MODEL} ]
+  then
+    SAMBA_FRUIT_MODEL="MacPro"
+  fi
+
   ##
   # SAMBA Configuration
   ##
@@ -60,6 +65,9 @@ cat >> /etc/smb.conf <<EOF
    vfs objects = catia fruit streams_xattr
    fruit:aapl = yes
    fruit:nfs_aces = no
+   fruit:model = $SAMBA_FRUIT_MODEL
+   fruit:advertise_fullsync = true
+
 EOF
   fi
 
